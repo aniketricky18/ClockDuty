@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Lines</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .copy-btn {
+        cursor: pointer;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
+</style>
+<script>
+    function copyLine1() {
+        var text = document.getElementById("line1").innerText;
+        navigator.clipboard.writeText(text);
+        alert("Line 1 copied to clipboard: " + text);
+    }
+
+    function copyLine2() {
+        var text = document.getElementById("line2").innerText;
+        navigator.clipboard.writeText(text);
+        alert("Line 2 copied to clipboard: " + text);
+    }
+</script>
+</head>
+<body>
+    <h1>Time Lines</h1>
+    <div id="line1">10-41: <span id="time1"></span></div>
+    <button class="copy-btn" onclick="copyLine1()">Copy 10-41</button>
+    <div id="line2">10-42: <span id="time2"></span></div>
+    <button class="copy-btn" onclick="copyLine2()">Copy 10-42</button>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var time1 = document.getElementById("time1");
+            var time2 = document.getElementById("time2");
+            time1.textContent = formatTime(now.getHours(), now.getMinutes());
+            time2.textContent = formatTime(now.getHours(), now.getMinutes());
+        }
+
+        function formatTime(hours, minutes) {
+            var meridiem = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0 should be displayed as 12
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${meridiem}`;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
